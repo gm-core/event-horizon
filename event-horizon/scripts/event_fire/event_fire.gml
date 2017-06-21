@@ -1,5 +1,5 @@
-/// @param eventName
-/// @param optionalData
+/// @param {String} eventName
+/// @param {Mixed} optionalData
 
 var eventName = argument[0];
 var eventDataRaw = argument_count > 1 ? argument[1] : "";

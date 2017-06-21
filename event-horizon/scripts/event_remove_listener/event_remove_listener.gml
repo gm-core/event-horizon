@@ -1,8 +1,8 @@
 /// @desc The opposite of event_add_listener. Use this to clean up event listeners you have set up. Failing to clean up listeners may result in unexpected behavior!
 /// It is suggested to run this on the "destroy" or "clean up" event on your object.
-/// @param eventName
-/// @param userEventOrEventCategory
-/// @param optionalEventId
+/// @param {String} eventName
+/// @param {Real or Constant} userEventOrEventCategory
+/// @param {Real or Constant} optionalEventId
 
 var eventName = argument[0];
 var eventPartOne = argument[1];
