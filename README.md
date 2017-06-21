@@ -1,6 +1,6 @@
 # Event Horizon
 
-Custom, memory-managed event firing for GameMaker: Studio and GameMaker: Studio 2
+Custom, memory-managed events for GameMaker: Studio and GameMaker: Studio 2
 
 ## Usage
 
