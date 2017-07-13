@@ -4,7 +4,7 @@ Custom, memory-managed events for GameMaker: Studio and GameMaker: Studio 2
 
 ## Usage
 
-To use Event Horizon, download [the latest release](https://github.com/gm-core/event-horizon/releases), and add the scripts to your project. At the very beginning of your game, before you use any event code, run `event_sysem_init()` to initialize the event system.
+To use Event Horizon, download [the latest release](https://github.com/gm-core/event-horizon/releases), and add the scripts to your project. At the very beginning of your game, before you use any event code, run `event_system_init()` to initialize the event system.
 
 ## API
 
