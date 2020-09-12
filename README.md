@@ -2,45 +2,56 @@
 
 Custom, memory-managed events for GameMaker: Studio and GameMaker: Studio 2
 
+Version 2.0.0
+
 ## Usage
 
-To use Event Horizon, download [the latest release](https://github.com/gm-core/event-horizon/releases), and add the scripts to your project. At the very beginning of your game, before you use any event code, run `event_system_init()` to initialize the event system.
+To use Event Horizon, download [the latest release](https://github.com/gm-core/event-horizon/releases), and import the `.yymps` package into your project. For detailed instructions, see [this page](https://gmcore.io/installing.html).
+
+Once imported to your project, you can use any of the API functions below. No further setup required.
 
 ## API
 
-### `event_system_init()`
+### `event_add_listener(eventName, eventMethod)`
 
-Initializes the event system. Run this before any other code in your game that uses the event system. A great place for this is on the creation code of your first room.
+Add an event listener which will call `eventMethod` when the provided `eventName` event is fired with `event_fire()`.
 
-### `event_add_listener(eventName, userEventOrEventCategory [, eventNumber])`
-
-Add an event listener to the object that calls this function.
-
-This can be used two ways. The first is to only pass two arguments: The event to listen for, and the user event to run in response.
-
-The other is to pass three arguments: The event to listen for, the category of event to run, and the number of the event to run. This works just like `event_perform` in response to an event firing. See the [event_perform docs](https://docs.yoyogames.com/source/dadiospice/002_reference/objects%20and%20instances/objects/generating%20events/event_perform.html) for more information on how that can work.
+This function returns a struct to be passed to `event_remove_listener()` to clean up later.
 
 ```
-@param eventName {String} The event to listen for
-@param userEventOrEventCategory {Real or Constant} The user event number to run, OR the category of event to run (see event_perform for more information)
-@param eventNumber {Real or Constant} OPTIONAL The specific event to run if you specified the category as the second parameter. (see event_perform for more information)
+@desc Add a listener to an event. Provide the event name, and either a number representing the user event number, or a combo of event category and type. See examples for info.
+@param {String} eventName    The name of the event to add a listener to
+@param {Method} eventMethod  The method/function to run when the event is fired
+@returns {Struct}            A struct describing the listener for use with event_remove_listener()
+@example
+
+// Listen for the "hurtPlayer" event and subtract 1 from health when it fires
+var listener = event_add_listener("hurtPlayer", function() {
+  health -= 1;
+});
 ```
 
-### `event_remove_listener(eventName, userEventOrEventCategory [, eventNumber])`
+### `event_remove_listener(listener)`
 
-Removes an event listener. Use this to clean up an event listener added with `event_add_listener()`. It takes the same parameters as you used to set up the listener.
+Removes an event listener. Use this to clean up an event listener added with `event_add_listener()`. `listener` is the returned value from `event_add_listener()`.
 
-This should run on the `destroy` event of an object, or `clean up` in GameMaker: Studio 2.
+This should run on the `destroy` or `clean up` event of an object, or when you no longer want the listener to run.
 
 ```
-@param {String} eventName
-@param {Real or Constant} userEventOrEventCategory
-@param {Real or Constant} optionalEventId
+@param {Struct} listener  The listener to remove as returned from event_add_listener
+@example
+
+// Create and then remove a listener
+var listener = event_add_listener("hurtPlayer", function() {
+  health -= 1;
+});
+
+event_remove_listener(listener);
 ```
 
 ### `event_fire(eventName [, eventData])`
 
-Fires an event, running all listeners that are currently set up for the event. Optionally, provide a value which will be available in the `eventData` variable on the action that runs from the event firing.
+Fires an event, running all listeners that are currently set up for the event. Optionally, provide a value which will be passed in to the method for all listeners as the first argument.
 
 ```
 @param {String} eventName

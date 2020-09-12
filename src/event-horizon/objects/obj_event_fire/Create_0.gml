@@ -1,0 +1,2 @@
+/// @description 
+clickCount = 0;
