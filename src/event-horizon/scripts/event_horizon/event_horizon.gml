@@ -75,7 +75,7 @@ function event_add_listener(eventName, eventMethod) {
 	var listenerId = _event_get_id();
 
 	var listenerData = {
-		instance: id,
+		instance: self,
 		eventMethod: eventMethod,
 		active: true,
 		listenerId: listenerId,
